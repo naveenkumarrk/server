@@ -8,11 +8,11 @@ This is a simple RESTful API for managing a collection of books. It is built wit
 
 ### Books
 
-- **GET **`` - /books => Fetch all books
-- **POST **`` - /books => Add a new book
-- **GET **`` - /books/:id => Get details of a specific book
-- **PUT **`` - /books/:id => Update a book
-- **DELETE **`` - /books/:id => Remove a book
+-`` **GET **`` - /books => Fetch all books
+- ``**POST **`` - /books => Add a new book
+- ``**GET **`` - /books/:id => Get details of a specific book
+-`` **PUT **`` - /books/:id => Update a book
+- ``**DELETE **`` - /books/:id => Remove a book
 
 ### Recommendations
 
