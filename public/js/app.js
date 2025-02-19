@@ -1,115 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAllBooks();
-  });
+  fetchAllBooks();
+});
 
 async function fetchAllBooks() {
-    try {
-      const response = await fetch("http://localhost:3000/books");
-      const data = await response.json();
-      const books = data;
-      console.log(books)
-      if (response.ok) {
-        const container = document.getElementById("booksList");
-        if (!books || books.length === 0) {
-          container.innerHTML = "<p>No books found.</p>";
-          return;
-        }
-        books.forEach((book) => {
-          const div = document.createElement("div");
-          div.classList.add("book-item");
-        
-          // Format genres
-          const genres = book.genres ? book.genres.join(", ") : "N/A";
+  try {
+    const response = await fetch("/books");
+    const data = await response.json();
+    const books = data;
+    console.log(books);
+    if (response.ok) {
+      const container = document.getElementById("booksList");
+      if (!books || books.length === 0) {
+        container.innerHTML = "<p>No books found.</p>";
+        return;
+      }
+      books.forEach((book) => {
+        const div = document.createElement("div");
+        div.classList.add("book-item");
+
+        // Format genres
+        const genres = book.genres ? book.genres.join(", ") : "N/A";
         div.addEventListener("click", async () => {
           showPopup(book);
-        })
-          // Book item content
-          div.innerHTML = `
-            <h3 class="book-title">${book.title}</h3>
-            <p class="book-author"><strong>Author:</strong> ${book.author}</p>
-            <p class="book-genres"><strong>Genres:</strong> ${genres}</p>
-          
-          `;
-        
-          container.appendChild(div);
-        
-          // Delete button event listener
-
-          // div.querySelector(".delete-btn").addEventListener("click", async () => {
-          //   if (confirm("Are you sure you want to delete this book?")) {
-          //     await fetch(`http://localhost:3000/books/${book._id}`, { method: "DELETE" });
-          //     alert("Book deleted successfully");
-          //     window.location.reload();
-          //   }
-          // });
         });
-        
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error fetching books");
+        // Book item content
+        div.innerHTML = `
+          <h3 class="book-title">${book.title}</h3>
+          <p class="book-author"><strong>Author:</strong> ${book.author}</p>
+          <p class="book-genres"><strong>Genres:</strong> ${genres}</p>
+        `;
+
+        container.appendChild(div);
+      });
     }
+  } catch (error) {
+    console.error(error);
+    alert("Error fetching books");
   }
-  
+}
 
-  function showPopup(book) {
-    const popup = document.getElementById("popup");
-    document.getElementById("popupTitle").textContent = book.title;
-    document.getElementById("popupAuthor").textContent = `Author: ${book.author}`;
-    document.getElementById("popupGenres").textContent = `Genres: ${book.genres ? book.genres.join(", ") : "N/A"}`;
-    document.getElementById("popupRating").textContent = `Rating: ${book.rating || "N/A"}`;
-    document.getElementById("popupReviews").innerHTML = book.reviews && book.reviews.length
-      ? book.reviews.map(r => `<p><strong>${r.name}:</strong> ${r.review}</p>`).join("")
-      : "<p>No reviews available.</p>";
+function showPopup(book) {
+  const popup = document.getElementById("popup");
+  document.getElementById("popupTitle").textContent = book.title;
+  document.getElementById("popupAuthor").textContent = `Author: ${book.author}`;
+  document.getElementById("popupGenres").textContent = `Genres: ${book.genres ? book.genres.join(", ") : "N/A"}`;
+  document.getElementById("popupRating").textContent = `Rating: ${book.rating || "N/A"}`;
+  document.getElementById("popupReviews").innerHTML = book.reviews && book.reviews.length
+    ? book.reviews.map(r => `<p><strong>${r.name}:</strong> ${r.review}</p>`).join("")
+    : "<p>No reviews available.</p>";
 
-    popup.style.display = "flex";
+  popup.style.display = "flex";
+}
+
+// Close popup
+document.getElementById("closePopup").addEventListener("click", () => {
+  document.getElementById("popup").style.display = "none";
+});
+
+document.getElementById("addBookForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const genre = document.getElementById("genre").value;
+  const description = document.getElementById("description").value;
+  const publishedDateValue = document.getElementById("publishedDate").value;
+  const rating = document.getElementById("rating").value;
+
+  const newBook = { title, author, genre, description, rating };
+  if (rating) {
+    newBook.rating = parseFloat(rating);
+  }
+  if (publishedDateValue) {
+    newBook.publishedDate = new Date(publishedDateValue);
   }
 
-  // Close popup
-  document.getElementById("closePopup").addEventListener("click", () => {
-    document.getElementById("popup").style.display = "none";
-  });
+  try {
+    const response = await fetch("/books", { 
+      method: "POST", 
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify(newBook)
+    });
+    const data = await response.json();
 
- document.getElementById("addBookForm").addEventListener("submit", async(e) => {
-    e.preventDefault()
-
-    const title = document.getElementById("title").value
-    const author = document.getElementById("author").value
-    const genre = document.getElementById("genre").value
-    const description = document.getElementById("description").value
-    const publishedDateValue = document.getElementById("publishedDate").value;
-    const rating = document.getElementById("rating").value
-
-    const newBook = {title, author, genre, description, rating}
-    if (rating){
-        newBook.rating = parseFloat(rating)
+    if (response.ok) {
+      alert("New Book added successfully");
+      document.getElementById("addBookForm").reset();
+      window.location.reload();
+    } else {
+      alert("Error: " + data.message);
     }
-    if (publishedDateValue) {
-        newBook.publishedDate = new Date(publishedDateValue);
-    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-    try {
-        const response = await fetch("http://localhost:3000/books",{ 
-            method: "POST", 
-            headers: {"content-Type" : "application/json"}, 
-            body: JSON.stringify(newBook),
-        })
-        const data = await response.json()
-
-        if (response.ok){
-            alert("new Book added successfully")
-            document.getElementById("addBookForm").reset()
-            window.location.reload()
-        }else{
-            alert("Error" + data.message)
-        }
-    } catch (error) {
-        console.log(error)
-    }
- })
-
-
-let currentPage = parseInt(new URLSearchParams(window.location.search).get('p'), 5) || 0;
+let currentPage = parseInt(new URLSearchParams(window.location.search).get('p'), 10) || 0;
 
 const booksContainer = document.getElementById("booksList");
 const pageInfo = document.getElementById("pageInfo");
@@ -119,7 +105,7 @@ const nextPageBtn = document.getElementById("nextPage");
 async function loadBooks(page) {
   try {
     // Fetch books using the API endpoint with the page query parameter
-    const response = await fetch(`http://localhost:3000/books?p=${page}`);
+    const response = await fetch(`/books?p=${page}`);
     if (!response.ok) {
       throw new Error("Failed to fetch books.");
     }
@@ -137,13 +123,13 @@ function renderBooks(books) {
     booksContainer.innerHTML += "<p>No books found.</p>";
     return;
   }
-  
+
   books.forEach(book => {
     const div = document.createElement("div");
     div.classList.add("book-item");
     div.addEventListener("click", async () => {
       showPopup(book);
-    })
+    });
     const genres = book.genres ? book.genres.join(", ") : "N/A";
     div.innerHTML = `
       <div class="book-title">${book.title}</div>
