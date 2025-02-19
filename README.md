@@ -16,7 +16,7 @@ This is a simple RESTful API for managing a collection of books. It is built wit
 
 ### Recommendations
 
-- **POST **`` - /recommendation => Gives back recommended books based on input
+- ``POST`` - /recommendation => Gives back recommended books based on input
 
 ## MongoDB Integration
 
