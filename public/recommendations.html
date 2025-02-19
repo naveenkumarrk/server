@@ -15,7 +15,8 @@
     </ul>
   </nav>
   <div class="container">
-    <div class="formDiv">
+    <div class="formDiv" style="display: inline-block;">
+      <h1>Enter your Interests</h1>
       <form id="recommFormDiv"> 
         <label for="recAuthor">Author</label>
         <input type="text" id="recAuthor" name="author" >
@@ -26,6 +27,7 @@
 
         <button type="submit">Submit</button>
       </form>      
+      <p>This handles the <strong>/recommendation</strong> endpoint in which the user <br/>gets the relevant books based on genre and author </p>
     </div>
     <div id="recommendationsResult">
       <h1>Recommended Books List</h1>
