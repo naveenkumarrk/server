@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+  <nav class="navBar">
+    <h1>Book Recommendations</h1>
+    <ul>
+      <a href="/">Books List</a>
+      <a href="/recommendation">Books Recommendations</a>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="formDiv">
+      <form id="recommFormDiv"> 
+        <label for="recAuthor">Author</label>
+        <input type="text" id="recAuthor" name="author" >
+
+        <label for="recGenre">Genre</label>
+        <input type="text" id="recGenre" name="genre" >
+
+
+        <button type="submit">Submit</button>
+      </form>      
+    </div>
+    <div id="recommendationsResult">
+      <h1>Recommended Books List</h1>
+
+    </div>
+  </div>
+
+  <div id="popup" class="popup-overlay">
+    <div class="popup-content">
+      <span id="closePopup">&times;</span>
+      <h2 id="popupTitle"></h2>
+      <p id="popupAuthor"></p>
+      <p id="popupGenres"></p>
+      <p id="popupRating"></p>
+      <h3>Reviews</h3>
+      <div id="popupReviews"></div>
+    </div>
+  </div>
+  <script src="./js/recommend.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #333;
+  }
+  .subheader {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .details {
+    margin-bottom: 20px;
+  }
+  .details p {
+    margin: 5px 0;
+  }
+  .genres {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+  }
+  .genres li {
+    background-color: #eaeaea;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  .reviews {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  .reviews h2 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #333;
+  }
+  .review {
+    margin-bottom: 10px;
+  }
+  .review strong {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .review p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .footer {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  .book-item{
+    font-size: 15px;
+  }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Books & Recommendations</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+    <nav class="navBar">
+        <h1>Book Recommendations</h1>
+        <ul>
+          <a href="/">Books List</a>
+          <a href="/recommendation">Books Recommendations</a>
+        </ul>
+      </nav>
+  <div class="container">
+    <div class="formDiv" style="display: inline-block;">
+      <h1>Add new Book</h1>
+      <form id="addBookForm">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author" required>
+
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre" required>
+
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" required>
+
+        <label for="publishedDate">published Date</label>
+        <input type="date" id="publishedDate" name="publishedDate" required>
+
+        <label for="rating">Rating</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required>
+
+        <button type="submit">Submit</button>
+      </form>
+      
+      
+    </div>
+
+    <div id="booksList">
+      <h1>Books List</h1>
+
+    </div>
+  </div>
+  <div id="popup" class="popup-overlay">
+    <div class="popup-content">
+      <span id="closePopup">&times;</span>
+      <h2 id="popupTitle"></h2>
+      <p id="popupAuthor"></p>
+      <p id="popupGenres"></p>
+      <p id="popupRating"></p>
+      <h3>Reviews</h3>
+      <div id="popupReviews"></div>
+    </div>
+  </div>
+  <div id="pagination" style="text-align: center; margin-top: 20px;">
+    <button id="prevPage" style="margin-right: 10px;">Previous</button>
+    <span id="pageInfo">Page 1</span>
+    <button id="nextPage" style="margin-left: 10px;">Next</button>
+  </div>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
