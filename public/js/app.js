@@ -104,7 +104,6 @@ const nextPageBtn = document.getElementById("nextPage");
 
 async function loadBooks(page) {
   try {
-    // Fetch books using the API endpoint with the page query parameter
     const response = await fetch(`/books?p=${page}`);
     if (!response.ok) {
       throw new Error("Failed to fetch books.");
